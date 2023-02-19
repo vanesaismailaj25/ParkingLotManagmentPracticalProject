@@ -1,7 +1,21 @@
+using Microsoft.EntityFrameworkCore;
+using ParkingLotManagament.Models;
+using System.Text.Json.Serialization;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddJsonOptions(options =>
+            options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
+// add database dependecy
+_ = builder.Services.AddDbContext<ParkingLotManagementDatabaseContext>(c =>
+{
+    c.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    c.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+
+});
+
 
 var app = builder.Build();
 
