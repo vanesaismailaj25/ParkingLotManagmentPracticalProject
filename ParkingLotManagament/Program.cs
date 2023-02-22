@@ -1,4 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using ParkingLotManagament.BLL.IServices;
+using ParkingLotManagament.BLL.Services;
+using ParkingLotManagament.DAL.IRepositories;
+using ParkingLotManagament.DAL.Repositories;
 using ParkingLotManagament.Models;
 using System.Text.Json.Serialization;
 
@@ -16,6 +20,8 @@ _ = builder.Services.AddDbContext<ParkingLotManagementDatabaseContext>(c =>
 
 });
 
+builder.Services.AddScoped<IParkingLotRepository,ParkingLotRepository>();
+builder.Services.AddScoped<IParkingLotService,ParkingLotService>();
 
 var app = builder.Build();
 

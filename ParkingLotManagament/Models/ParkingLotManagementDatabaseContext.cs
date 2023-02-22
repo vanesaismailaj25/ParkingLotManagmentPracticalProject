@@ -100,8 +100,10 @@ namespace ParkingLotManagament.Models
             });
 
             OnModelCreatingPartial(modelBuilder);
+            modelBuilder.Seed();
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
     }
 }
