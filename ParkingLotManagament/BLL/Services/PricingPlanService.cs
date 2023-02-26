@@ -1,5 +1,6 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 using NuGet.Packaging.Signing;
+using NuGet.Protocol.Core.Types;
 using ParkingLotManagament.BLL.IServices;
 using ParkingLotManagament.DAL.IRepositories;
 using ParkingLotManagament.Models;
@@ -16,7 +17,7 @@ public class PricingPlanService : IPricingPlanService
         repository = _repository ;
     }
 
-    public async Task<List<PricingPlanViewModel>> GetAllAsync()
+    public async Task<List<PricingPlanViewModel>> GetAll()
     {
         var result = await repository.GetAllAsync();
         var pricingPlan = result.Select(p => new PricingPlanViewModel
@@ -44,5 +45,11 @@ public class PricingPlanService : IPricingPlanService
             return planUpdate;
         }
         return null;
+    }
+
+
+    public async Task<IEnumerable<PricingPlan>> GetAllAsync()
+    {
+        return await repository.GetAllAsync();
     }
 }

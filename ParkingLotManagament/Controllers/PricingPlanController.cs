@@ -14,9 +14,10 @@ public class PricingPlanController : Controller
         service = _service;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        var result = await service.GetAllAsync();
+        return View(result);
     }
     public async Task<IActionResult> Update(int id, PricingPlan pricingPlan)
     {
