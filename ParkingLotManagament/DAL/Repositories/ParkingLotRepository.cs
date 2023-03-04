@@ -21,16 +21,17 @@ namespace ParkingLotManagament.DAL.Repositories
 
         public async Task<int> CountReserved()
         {
-            var countedReservedSpots = await _context.ParkingLots.Where(x=>x.IsReserved==true).CountAsync();
+            var countedReservedSpots = await _context.ParkingLots.Where(x=>x.SubscriptionId!=null).CountAsync();
             return countedReservedSpots;
         }
 
         public async Task<ParkingLot> Edit(ParkingLot parkingLot)
         {
-            _context.Update(parkingLot);
+            _context.ParkingLots.Update(parkingLot);
             await _context.SaveChangesAsync();
             return parkingLot;
         }
+
 
         public async Task<ParkingLot> Get(int? id)
         {

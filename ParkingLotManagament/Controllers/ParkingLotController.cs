@@ -1,6 +1,7 @@
 ﻿
- using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using ParkingLotManagament.BLL.IServices;
+using ParkingLotManagament.Models;
 using ParkingLotManagament.ViewModels;
 
 namespace ParkingLotManagament.Controllers
@@ -14,19 +15,20 @@ namespace ParkingLotManagament.Controllers
             _service = parkingService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
 
-            var totalSpots = _service.CountSpots();
-            var reservedSpots = _service.CountReservedSpots();
-            var freeSpots = totalSpots - reservedSpots;
+            //var totalSpots = _service.CountSpots();
+            //var reservedSpots = _service.CountReservedSpots();
+            //var freeSpots = totalSpots - reservedSpots;
 
-            var viewModel = new ParkingLotViewModel
-            {
-                TotalSpots = totalSpots,
-                ReservedSpots = reservedSpots,
-                FreeSpots = freeSpots
-            };
+            //var viewModel = new ParkingTableViewModel
+            //{
+            //    TotalSpots = totalSpots,
+            //    ReservedSpots = reservedSpots,
+            //    FreeSpots = freeSpots
+            //};
+            var viewModel = await _service.CountAll();
 
             return View(viewModel);
         }
@@ -36,5 +38,22 @@ namespace ParkingLotManagament.Controllers
             var result = await _service.GetAll();
             return View(result);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(ParkingDetailsViewModel parkingLot)
+        {
+            await _service.Edit(parkingLot);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var result = await _service.GetById(id);
+            return View(result);
+        }
     }
+
+
 }
+

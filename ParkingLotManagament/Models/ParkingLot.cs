@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ParkingLotManagament.Models
 {
@@ -7,9 +8,7 @@ namespace ParkingLotManagament.Models
     {
         public int Id { get; set; }
         public string ParkingName { get; set; } = null!;
-        public bool IsReserved { get; set; }
         public int? SubscriptionId { get; set; }
-
         public virtual Subscription? Subscription { get; set; }
     }
 }
