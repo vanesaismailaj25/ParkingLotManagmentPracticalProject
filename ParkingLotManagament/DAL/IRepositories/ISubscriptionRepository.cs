@@ -9,7 +9,7 @@ namespace ParkingLotManagament.DAL.IRepositories
         Task<Subscription> DeleteSubscriptionAsync(Subscription subscription, int subscriberId);
         Task<Subscription> GetSubscriptionAsync(int subscriberId);
         Task<List<Subscription>> GetAllSubscriptionAsync();
-        Task<bool> ExistsAsync(Guid code);
+        Task<bool> ExistsAsync(int subscriberId);
 
     }
 }

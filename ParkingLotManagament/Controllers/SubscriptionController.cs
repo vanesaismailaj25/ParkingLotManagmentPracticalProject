@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ParkingLotManagament.BLL.IServices;
+using ParkingLotManagament.DAL.Repositories;
+using ParkingLotManagament.Models;
+using ParkingLotManagament.ViewModels;
 
 namespace ParkingLotManagament.Controllers
 {
@@ -12,10 +15,34 @@ namespace ParkingLotManagament.Controllers
             subscriptionService = _subscriptionService;
         }
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
-            var subscriberId = subscriptionService.GetSubscriptionBySubscriberId();
-
+            var subscription = await subscriptionService.GetAllSubscription();
+            return View(subscription);
         }
+        [HttpGet]
+        public async Task<IActionResult> Details(int subscriberId)
+        {
+            var subscriptionModel = await subscriptionService.GetSubscriptionBySubscriberId(subscriberId);
+            return View(subscriptionModel);
+        }
+        [HttpPost]
+        public IActionResult CreateSubscription()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateSubscription(Subscription subscription)
+        {
+           
+                var result = await subscriptionService.CreateSubscription(subscription);
+                return View(result);
+         }
+        public async Task<IActionResult> UpdateSubscription(Subscription subscription)
+        {
+           var result = await subscriptionService.UpdateSubscription(subscription);
+            return View(result);
+        }
+
     }
 }

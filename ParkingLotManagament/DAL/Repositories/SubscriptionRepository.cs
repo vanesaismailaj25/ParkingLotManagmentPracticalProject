@@ -36,9 +36,9 @@ namespace ParkingLotManagament.DAL.Repositories
 
             return result.Entity;
         }
-        public async Task<bool> ExistsAsync(Guid code)
+        public async Task<bool> ExistsAsync(int subscriberId)
         {
-            var result = await context.Subscriptions.AnyAsync(s => s.Code == code);
+            var result = await context.Subscriptions.AnyAsync(s => s.SubscriberId == subscriberId);
             return result;
         }
 
