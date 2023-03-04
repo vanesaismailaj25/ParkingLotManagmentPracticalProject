@@ -1,4 +1,6 @@
 ﻿using ParkingLotManagament.Models;
+using ParkingLotManagament.ViewModels;
+using System.Diagnostics.Metrics;
 
 namespace ParkingLotManagament.BLL.IServices
 {
@@ -6,7 +8,9 @@ namespace ParkingLotManagament.BLL.IServices
     {
         int CountReservedSpots();
         int CountSpots();
-        Task<ParkingLot> Edit(ParkingLot parkingLot);
-        Task<IEnumerable<ParkingLot>> GetAll();
+        Task<IEnumerable<ParkingDetailsViewModel>> GetAll();
+        Task<ParkingDetailsViewModel> GetById(int id);
+        Task<ParkingTableViewModel> CountAll();
+        Task<ParkingDetailsViewModel> Edit(ParkingDetailsViewModel parkingView);
     }
 }

@@ -20,6 +20,10 @@ _ = builder.Services.AddDbContext<ParkingLotManagementDatabaseContext>(c =>
 
 });
 
+// Adding Automapper dependency into program
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+// Inject classes into Program
 builder.Services.AddScoped<IParkingLotRepository,ParkingLotRepository>();
 builder.Services.AddScoped<IParkingLotService,ParkingLotService>();
 

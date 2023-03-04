@@ -11,5 +11,6 @@ namespace ParkingLotManagament.DAL.IRepositories
         Task<int> CountReserved();
 
 
+
     }
 }
