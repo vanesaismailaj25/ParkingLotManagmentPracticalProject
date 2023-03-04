@@ -14,31 +14,31 @@ namespace ParkingLotManagament.Controllers
         {
             subscriptionService = _subscriptionService;
         }
-        [HttpGet]
-        public async Task<IActionResult> IndexAsync()
+
+        public async Task<IActionResult> Index()
         {
             var subscription = await subscriptionService.GetAllSubscription();
             return View(subscription);
         }
-        [HttpGet]
+
         public async Task<IActionResult> Details(int subscriberId)
         {
             var subscriptionModel = await subscriptionService.GetSubscriptionBySubscriberId(subscriberId);
             return View(subscriptionModel);
         }
-        [HttpPost]
-        public IActionResult CreateSubscription()
+        
+        public IActionResult Create()
         {
             return View();
         }
-        [HttpPost]
+        
         public async Task<IActionResult> CreateSubscription(Subscription subscription)
         {
            
                 var result = await subscriptionService.CreateSubscription(subscription);
                 return View(result);
          }
-        public async Task<IActionResult> UpdateSubscription(Subscription subscription)
+        public async Task<IActionResult> Update(Subscription subscription)
         {
            var result = await subscriptionService.UpdateSubscription(subscription);
             return View(result);

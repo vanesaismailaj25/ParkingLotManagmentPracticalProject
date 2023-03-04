@@ -75,8 +75,6 @@ namespace ParkingLotManagament.Models
                     MinimumHours = DateTime.Now.AddMinutes(15),
                     Weekend = true
                 });
-
-
         }
     }
 }
