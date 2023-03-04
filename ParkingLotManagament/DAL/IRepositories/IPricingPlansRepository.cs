@@ -6,6 +6,6 @@ namespace ParkingLotManagament.DAL.IRepositories
     {
         Task<List<PricingPlan>> GetAllAsync();
         Task<PricingPlan> GetAsync(int Id);
-        Task<PricingPlan> UpdateAsync(int Id,PricingPlan pricingPlan);
+        Task<PricingPlan> UpdateAsync(PricingPlan pricingPlan);
     }
 }

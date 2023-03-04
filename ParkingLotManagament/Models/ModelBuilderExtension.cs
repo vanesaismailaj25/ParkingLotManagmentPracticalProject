@@ -64,7 +64,7 @@ namespace ParkingLotManagament.Models
                     Id = 1,
                     HourlyPricing = 100,
                     DailyPricing = 800,
-                    MinimumHours = DateTime.Now.AddMinutes(15),
+                    MinimumHours = TimeSpan.FromMinutes(15),
                     Weekend = false
                 },
                 new PricingPlan
@@ -72,7 +72,7 @@ namespace ParkingLotManagament.Models
                     Id = 2,
                     HourlyPricing = 80,
                     DailyPricing = 500,
-                    MinimumHours = DateTime.Now.AddMinutes(15),
+                    MinimumHours = TimeSpan.FromMinutes(15),
                     Weekend = true
                 });
 

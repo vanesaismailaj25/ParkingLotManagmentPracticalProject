@@ -7,26 +7,33 @@ namespace ParkingLotManagament.Controllers;
 
 public class PricingPlanController : Controller
 {
-    private readonly IPricingPlanService service;
+    private readonly IPricingPlanService _service;
 
-    public PricingPlanController(IPricingPlanService _service)
+    public PricingPlanController(IPricingPlanService service)
     {
-        service = _service;
+        this._service = service;
     }
 
     public async Task<IActionResult> Index()
     {
-        var result = await service.GetAllAsync();
+        var result = await _service.GetAllAsync();
         return View(result);
     }
-    public async Task<IActionResult> Update(int id, PricingPlan pricingPlan)
+    [HttpPost]
+    public async Task<IActionResult> Edit( PricingPlan pricingPlan)
     {
-        var updatePlan = await service.UpdateAsync(id, pricingPlan);
-        return View(updatePlan);
+        await _service.UpdateAsync(pricingPlan);
+        return RedirectToAction("Details",new {id=pricingPlan.Id});
     }
-    public  async Task<IActionResult> Details() 
+    [HttpGet]
+    public async Task<IActionResult> Edit( int id)
     {
-        var result = await service.GetAllAsync();
+        var result = await _service.GetPricing(id);
+        return View(result);
+    }
+    public  async Task<IActionResult> Details(int id) 
+    {
+        var result = await _service.GetPricing(id);
         return View(result);
     }
 

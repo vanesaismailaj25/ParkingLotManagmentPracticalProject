@@ -15,7 +15,7 @@ public class PricingPlanRepository : IPricingPlansRepository
 
     public async Task<PricingPlan> GetAsync(int Id)
     {
-        var pricingPlan = await _context.PricingPlans.FirstOrDefaultAsync(p => p.Id == Id);
+        var pricingPlan = await _context.PricingPlans.FindAsync(Id);
         return pricingPlan;
     }
 
@@ -25,10 +25,10 @@ public class PricingPlanRepository : IPricingPlansRepository
         return pricingPlan;
     }
 
-    public async Task<PricingPlan> UpdateAsync(int Id,PricingPlan pricingPlan)
+    public async Task<PricingPlan> UpdateAsync(PricingPlan pricingPlan)
     {
-        var result = _context.PricingPlans.Update(pricingPlan);
+         _context.PricingPlans.Update(pricingPlan);
         _ = await _context.SaveChangesAsync();
-        return result.Entity;
+        return pricingPlan;
     }
 }

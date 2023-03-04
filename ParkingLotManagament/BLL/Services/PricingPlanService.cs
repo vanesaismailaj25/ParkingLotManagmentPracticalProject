@@ -10,46 +10,28 @@ namespace ParkingLotManagament.BLL.Services;
 
 public class PricingPlanService : IPricingPlanService
 {
-    private readonly IPricingPlansRepository repository;
+    private readonly IPricingPlansRepository _repository;
 
-    public PricingPlanService(IPricingPlansRepository _repository)
+    public PricingPlanService(IPricingPlansRepository repository)
     {
-        repository = _repository ;
+        repository = _repository;
+        this._repository = repository;
     }
 
-    public async Task<List<PricingPlanViewModel>> GetAll()
+    public async Task<PricingPlan> UpdateAsync(PricingPlan plan)
     {
-        var result = await repository.GetAllAsync();
-        var pricingPlan = result.Select(p => new PricingPlanViewModel
-        {
-            HourlyPricing = p.HourlyPricing,
-            DailyPricing = p.DailyPricing
-        }).ToList();
-
-        return pricingPlan;
-    }
-
-    public async Task<PricingPlan> UpdateAsync(int Id,PricingPlan plan)
-    {
-        var planExists = await repository.GetAsync(Id);
-
-        if (planExists != null) 
-        {
-            planExists.HourlyPricing = plan.HourlyPricing;
-            planExists.DailyPricing = plan.DailyPricing;
-
-            await repository.UpdateAsync(Id,plan);
-
-            var planUpdate = await repository.GetAsync(Id);
-
-            return planUpdate;
-        }
-        return null;
+        var planUpdate = await _repository.UpdateAsync(plan);
+        return planUpdate;
     }
 
 
     public async Task<IEnumerable<PricingPlan>> GetAllAsync()
     {
-        return await repository.GetAllAsync();
+        return await _repository.GetAllAsync();
+    }
+
+    public async Task<PricingPlan> GetPricing(int Id)
+    {
+        return await _repository.GetAsync(Id);
     }
 }
