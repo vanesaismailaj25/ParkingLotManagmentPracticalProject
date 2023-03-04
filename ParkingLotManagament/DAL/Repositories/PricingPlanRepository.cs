@@ -19,7 +19,7 @@ public class PricingPlanRepository : IPricingPlansRepository
         return pricingPlan;
     }
 
-    public async Task<List<PricingPlan>> GetAllAsync()
+    public async Task<IEnumerable<PricingPlan>> GetAllAsync()
     {
         var pricingPlan = await _context.PricingPlans.ToListAsync();
         return pricingPlan;

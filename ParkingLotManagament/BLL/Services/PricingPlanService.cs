@@ -14,8 +14,8 @@ public class PricingPlanService : IPricingPlanService
 
     public PricingPlanService(IPricingPlansRepository repository)
     {
-        repository = _repository;
-        this._repository = repository;
+
+       _repository = repository;
     }
 
     public async Task<PricingPlan> UpdateAsync(PricingPlan plan)

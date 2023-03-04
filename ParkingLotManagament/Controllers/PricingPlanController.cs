@@ -11,7 +11,7 @@ public class PricingPlanController : Controller
 
     public PricingPlanController(IPricingPlanService service)
     {
-        this._service = service;
+        _service = service;
     }
 
     public async Task<IActionResult> Index()
