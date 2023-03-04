@@ -30,7 +30,8 @@ builder.Services.AddScoped<IPricingPlansRepository, PricingPlanRepository>();
 builder.Services.AddScoped<IPricingPlanService,PricingPlanService>();
 builder.Services.AddScoped<ISubscriptionRepository,SubscriptionRepository>();
 builder.Services.AddScoped<ISubscriptionService,SubscriptionService>();
-
+builder.Services.AddScoped<ILogRepository,LogRepository>();
+builder.Services.AddScoped<ILogService,LogService>();
 
 var app = builder.Build();
 
