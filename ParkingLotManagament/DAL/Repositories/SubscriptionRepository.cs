@@ -1,33 +1,64 @@
-﻿using ParkingLotManagament.DAL.IRepositories;
+﻿using Microsoft.EntityFrameworkCore;
+using ParkingLotManagament.DAL.IRepositories;
 using ParkingLotManagament.Models;
 
 namespace ParkingLotManagament.DAL.Repositories
 {
     public class SubscriptionRepository : ISubscriptionRepository
     {
-        public Task<Subscription> AddSubscriptionAsync(Subscription subscription)
+        ParkingLotManagementDatabaseContext context;
+
+        public SubscriptionRepository(ParkingLotManagementDatabaseContext _context)
         {
+            context = _context;
+        }
+
+        public async Task<Subscription> CreateSubscriptionAsync(Subscription subscription)
+        {
+           
+            //var entity = await ExistsAsync(code);
+            //if (entity == null)
+            //{
+            //   var result = context.Subscriptions.Add(subscription);
+            //    _ = await context.SaveChangesAsync();
+
+            //    return result.Entity;
+            //}
+            //return;
             throw new NotImplementedException();
         }
 
-        public Task DeleteSubscriptionAsync(int Id)
+        public async Task<Subscription> DeleteSubscriptionAsync(Subscription subscription, int subscriberId)
         {
-            throw new NotImplementedException();
+            var entity = await GetSubscriptionAsync(subscriberId);
+            var result = context.Subscriptions.Remove(entity);
+            _ = await context.SaveChangesAsync();
+
+            return result.Entity;
+        }
+        public async Task<bool> ExistsAsync(Guid code)
+        {
+            var result = await context.Subscriptions.AnyAsync(s => s.Code == code);
+            return result;
         }
 
-        public Task<List<Subscription>> GetAllSubscriptionsAsync()
+        public async Task<List<Subscription>> GetAllSubscriptionAsync()
         {
-            throw new NotImplementedException();
+            var result = await context.Subscriptions.ToListAsync();
+            return result;
+        }
+        //should get the subscription by code or subscriber name
+        public async Task<Subscription> GetSubscriptionAsync(int subscriberId)
+        {
+            var result = await context.Subscriptions.FirstOrDefaultAsync(s => s.Id == subscriberId);
+            return result;
         }
 
-        public Task<Subscription> GetSubscriptionAsync(int Id)
+        public async Task<Subscription> UpdateSubscriptionAsync(Subscription subscription)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<Subscription> UpdateSubscriptionAsync(Subscription subscription)
-        {
-            throw new NotImplementedException();
+            var result = context.Subscriptions.Update(subscription);
+            _ = await context.SaveChangesAsync();
+            return result.Entity;
         }
     }
 }
