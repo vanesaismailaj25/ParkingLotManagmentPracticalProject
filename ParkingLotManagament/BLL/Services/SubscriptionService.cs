@@ -14,13 +14,9 @@ namespace ParkingLotManagament.BLL.Services
            subscriptionRepository = _subscriptionRepository;
         }
 
-        public async Task<Subscription> CreateSubscription(Subscription subscription, Guid code)
+        public async Task<Subscription> CreateSubscription(Subscription subscription)
         {
-           if(await subscriptionRepository.ExistsAsync(code))
-            {
-                throw new Exception("There already is a subscription with the given code!");
-
-            }
+           
             var Subscription = new Subscription
             {
                 Price = subscription.Price,
