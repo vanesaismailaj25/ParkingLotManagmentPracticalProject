@@ -26,6 +26,8 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 // Inject classes into Program
 builder.Services.AddScoped<IParkingLotRepository,ParkingLotRepository>();
 builder.Services.AddScoped<IParkingLotService,ParkingLotService>();
+builder.Services.AddScoped<IPricingPlansRepository, PricingPlanRepository>();
+builder.Services.AddScoped<IPricingPlanService,PricingPlanService>();
 
 var app = builder.Build();
 
