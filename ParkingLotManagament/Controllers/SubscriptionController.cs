@@ -26,7 +26,6 @@ namespace ParkingLotManagament.Controllers
             return View(subscriptionModel);
         }
 
-        [HttpPost]
         public IActionResult Create()
         {
             return View();

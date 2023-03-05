@@ -21,14 +21,13 @@ namespace ParkingLotManagament.DAL.Repositories
             return result.Entity;
         }
 
-        public async Task<Subscription> DeleteSubscriptionAsync(int subscriberId)
+        public async Task<bool> DeleteSubscriptionAsync(int subscriberId)
         {
             var entity = await GetSubscriptionAsync(subscriberId);
             entity.IsDeleted= true;
-            var result = _context.Subscriptions.Remove(entity);
             _ = await _context.SaveChangesAsync();
 
-            return result.Entity;
+            return true;
         }
 
         public async Task<bool> ExistsAsync(int subscriberId)
@@ -37,7 +36,7 @@ namespace ParkingLotManagament.DAL.Repositories
             return result;
         }
 
-        public async Task<List<Subscription>> GetAllSubscriptionAsync()
+        public async Task<IEnumerable<Subscription>> GetAll()
         {
             var result = await _context.Subscriptions.ToListAsync();
             return result;

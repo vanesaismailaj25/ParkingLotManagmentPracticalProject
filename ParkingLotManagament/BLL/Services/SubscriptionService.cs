@@ -60,21 +60,12 @@ namespace ParkingLotManagament.BLL.Services
             };
         }
 
-        public async Task<Subscription> DeleteSubscription(Subscription subscription)
-        {
-            return await _repository.DeleteSubscriptionAsync(subscription.Id);
-        }
         public async Task<bool> DeleteSubscription(int id)
         {
             var result = await _repository.GetSubscriptionAsync(id);
             var mappedSubscription = _mapper.Map<Subscription>(result);
             await _repository.DeleteSubscriptionAsync(result.Id);
             return true;
-        }
-
-        public async Task<List<Subscription>> GetAllSubscription()
-        {
-            return await _repository.GetAllSubscriptionAsync();
         }
 
         public async Task<SubscriptionViewModel> GetSubscriptionById(int Id)
@@ -97,7 +88,7 @@ namespace ParkingLotManagament.BLL.Services
 
         public async Task<IEnumerable<SubscriptionViewModel>> GetAll()
         {
-            var result = await _repository.GetAllSubscriptionAsync();
+            var result = await _repository.GetAll();
             var mappedSubscription = _mapper.Map<IEnumerable<SubscriptionViewModel>>(result);
             return mappedSubscription;
         }
