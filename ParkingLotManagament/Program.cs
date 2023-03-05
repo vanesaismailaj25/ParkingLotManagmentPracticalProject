@@ -28,9 +28,10 @@ builder.Services.AddScoped<IParkingLotRepository,ParkingLotRepository>();
 builder.Services.AddScoped<IParkingLotService,ParkingLotService>();
 builder.Services.AddScoped<IPricingPlansRepository, PricingPlanRepository>();
 builder.Services.AddScoped<IPricingPlanService,PricingPlanService>();
-
 builder.Services.AddScoped<ISubscriptionRepository,SubscriptionRepository>();
 builder.Services.AddScoped<ISubscriptionService,SubscriptionService>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
