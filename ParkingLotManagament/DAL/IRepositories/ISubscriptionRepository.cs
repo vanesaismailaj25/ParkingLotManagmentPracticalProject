@@ -1,8 +1,7 @@
 ﻿using ParkingLotManagament.Models;
 namespace ParkingLotManagament.DAL.IRepositories;
 
-namespace ParkingLotManagament.DAL.IRepositories
-{
+
     public interface ISubscriptionRepository
     {
         Task<Subscription> CreateSubscriptionAsync(Subscription subscription);
@@ -13,4 +12,4 @@ namespace ParkingLotManagament.DAL.IRepositories
         Task<bool> ExistsAsync(int subscriberId);
 
     }
-}
+
