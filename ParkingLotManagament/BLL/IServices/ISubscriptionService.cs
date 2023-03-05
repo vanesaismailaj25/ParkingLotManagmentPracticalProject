@@ -1,11 +1,13 @@
 ﻿using ParkingLotManagament.Models;
+using ParkingLotManagament.ViewModels;
+
 namespace ParkingLotManagament.BLL.IServices;
 
 public interface ISubscriptionService
 {
-    Task<Subscription> CreateSubscription(Subscription subscription );
-    Task<Subscription> UpdateSubscription(Subscription subscription);
-    Task<Subscription> DeleteSubscription(Subscription subscription);
-    Task<Subscription> GetSubscriptionBySubscriberId(int subscriberId);
-    Task<List<Subscription>> GetAllSubscription();
+    Task<SubscriptionViewModel> CreateSubscription(SubscriptionViewModel subscriptionViewModel );
+    Task<SubscriptionViewModel> UpdateSubscription(SubscriptionViewModel subscriptionViewModel);
+    Task<SubscriptionViewModel> GetSubscriptionById(int subscriberId);
+    public Task<bool> DeleteSubscription(int id);
+    Task<IEnumerable<SubscriptionViewModel>> GetAll();
 }

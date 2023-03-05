@@ -4,13 +4,11 @@ using ParkingLotManagament.ViewModels;
 
 namespace ParkingLotManagament.Profiler
 {
-    public class ParkingLotProfiler : Profile
+    public class SubscriptionProfile : Profile
     {
-        public ParkingLotProfiler()
+        public SubscriptionProfile()
         {
-            CreateMap<ParkingDetailsViewModel, ParkingLot>().ReverseMap();
-           
+            CreateMap<SubscriptionViewModel, Subscriber>().ReverseMap();
         }
     }
-
 }

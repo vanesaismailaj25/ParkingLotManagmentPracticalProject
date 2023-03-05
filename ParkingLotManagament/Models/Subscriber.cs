@@ -18,7 +18,7 @@ namespace ParkingLotManagament.Models
         public string PhoneNumber { get; set; } = null!;
         public DateTime? Birthday { get; set; }
         public string PlateNumber { get; set; } = null!;
-        public bool IsDeleted { get; set; }
+        public bool IsDeleted { get; set; } = false;
 
         public virtual ICollection<Subscription> Subscriptions { get; set; }
     }

@@ -21,23 +21,19 @@ namespace ParkingLotManagament.DAL.Repositories
             return result.Entity;
         }
 
-        public async Task<Subscription> DeleteSubscriptionAsync(Subscription subscription, int subscriberId)
+        public async Task<Subscription> DeleteSubscriptionAsync(int subscriberId)
         {
             var entity = await GetSubscriptionAsync(subscriberId);
+            entity.IsDeleted= true;
             var result = _context.Subscriptions.Remove(entity);
             _ = await _context.SaveChangesAsync();
 
             return result.Entity;
         }
 
-        public Task DeleteSubscriptionAsync(int Id)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<bool> ExistsAsync(int subscriberId)
         {
-            var result = await _context.Subscriptions.AnyAsync(s => s.SubscriberId == subscriberId);
+            var result = await _context.Subscriptions.AnyAsync(s => s.SubscriberId == subscriberId && s.IsDeleted==false);
             return result;
         }
 
@@ -51,7 +47,7 @@ namespace ParkingLotManagament.DAL.Repositories
         //should get the subscription by code or subscriber name
         public async Task<Subscription> GetSubscriptionAsync(int subscriberId)
         {
-            var result = await _context.Subscriptions.FirstOrDefaultAsync(s => s.Id == subscriberId);
+            var result = await _context.Subscriptions.FirstOrDefaultAsync(s => s.Id == subscriberId && s.IsDeleted==false);
             return result;
         }
 

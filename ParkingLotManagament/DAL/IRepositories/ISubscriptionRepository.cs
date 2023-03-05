@@ -6,7 +6,7 @@ namespace ParkingLotManagament.DAL.IRepositories;
     {
         Task<Subscription> CreateSubscriptionAsync(Subscription subscription);
         Task<Subscription> UpdateSubscriptionAsync(Subscription subscription);
-        Task<Subscription> DeleteSubscriptionAsync(Subscription subscription, int subscriberId);
+        Task<Subscription> DeleteSubscriptionAsync(int subscriberId);
         Task<Subscription> GetSubscriptionAsync(int subscriberId);
         Task<List<Subscription>> GetAllSubscriptionAsync();
         Task<bool> ExistsAsync(int subscriberId);

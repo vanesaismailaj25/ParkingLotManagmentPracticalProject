@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ParkingLotManagament.Models;
 
@@ -11,9 +12,10 @@ using ParkingLotManagament.Models;
 namespace ParkingLotManagament.Migrations
 {
     [DbContext(typeof(ParkingLotManagementDatabaseContext))]
-    partial class ParkingLotManagementDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230305111134_EditedCodeType")]
+    partial class EditedCodeType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

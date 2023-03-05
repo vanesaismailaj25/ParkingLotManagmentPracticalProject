@@ -78,5 +78,6 @@ namespace ParkingLotManagament.BLL.Services
             };
             return viewModel;
         }
+
     }
 }
