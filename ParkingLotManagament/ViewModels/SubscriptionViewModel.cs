@@ -1,6 +1,4 @@
 ﻿using ParkingLotManagament.Models;
-using System.Text;
-using XSystem.Security.Cryptography;
 
 namespace ParkingLotManagament.ViewModels
 {
