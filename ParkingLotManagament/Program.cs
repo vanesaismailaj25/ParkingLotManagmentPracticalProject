@@ -22,6 +22,8 @@ _ = builder.Services.AddDbContext<ParkingLotManagementDatabaseContext>(c =>
 
 builder.Services.AddScoped<IParkingLotRepository,ParkingLotRepository>();
 builder.Services.AddScoped<IParkingLotService,ParkingLotService>();
+builder.Services.AddScoped<ISubscriberRepository, SubscriberRepository>();
+builder.Services.AddScoped<ISubscriberService, SubscriberService>();
 
 var app = builder.Build();
 

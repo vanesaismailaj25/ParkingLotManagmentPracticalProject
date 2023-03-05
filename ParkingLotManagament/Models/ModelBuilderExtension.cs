@@ -76,7 +76,6 @@ namespace ParkingLotManagament.Models
                     Weekend = true
                 });
 
-
         }
     }
 }
