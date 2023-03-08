@@ -30,9 +30,9 @@ namespace ParkingLotManagament.BLL.Services
             return await subscriberRepository.GetSubscriberById(id);
         }
 
-        public async Task<bool> SoftDeleteSubscriberAsync(int id)
+        public async Task<bool> DeleteSubscriber(int id)
         {
-           return await subscriberRepository.SoftDeleteSubscriberAsync(id);
+           return await subscriberRepository.DeleteSubscriber(id);
         }
 
         public async Task<Subscriber> UpdateSubscriber(Subscriber subscriber)

@@ -6,7 +6,7 @@ namespace ParkingLotManagament.DAL.Repositories
 {
     public class ParkingLotRepository : IParkingLotRepository
     {
-        ParkingLotManagementDatabaseContext _context;
+        private readonly ParkingLotManagementDatabaseContext _context;
 
         public ParkingLotRepository(ParkingLotManagementDatabaseContext databaseContext)
         {

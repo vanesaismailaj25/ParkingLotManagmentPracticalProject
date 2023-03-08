@@ -19,9 +19,12 @@ namespace ParkingLotManagament.DAL.Repositories
             return subscriber;
         }
 
-        public async Task<Subscriber> Get(int? id)
+        public async Task<Subscriber> GetSubscriberById(int id)
         {
-            return await _context.Subscribers.FindAsync(id);
+            var subscriber = await _context.Subscribers
+                                           .Where(x => x.IsDeleted == false)
+                                           .FirstOrDefaultAsync(x => x.Id == id);
+            return subscriber;
         }
 
         public async Task<Subscriber> CreateSubscriber(Subscriber subscriber)
@@ -39,12 +42,7 @@ namespace ParkingLotManagament.DAL.Repositories
             return subscriber;
         }
 
-        public async Task<Subscriber> GetSubscriberById(int id)
-        {
-            return await _context.Subscribers.FindAsync(id);
-        }
-
-        public async Task<bool> SoftDeleteSubscriberAsync(int id)
+        public async Task<bool> DeleteSubscriber(int id)
         {
             Subscriber subscriber = await _context.Subscribers.FindAsync(id);
             subscriber.IsDeleted = true;
