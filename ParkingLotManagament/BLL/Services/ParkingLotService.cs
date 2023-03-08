@@ -7,11 +7,9 @@ namespace ParkingLotManagament.BLL.Services
     public class ParkingLotService : IParkingLotService
     {
         private readonly IParkingLotRepository _repository;
-        private Task<ParkingLot> _await;
-
-        public ParkingLotService(IParkingLotRepository parkingLot)
+        public ParkingLotService(IParkingLotRepository repository)
         {
-            _repository = parkingLot ?? throw new ArgumentNullException(nameof(parkingLot));
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
         public int CountSpots()

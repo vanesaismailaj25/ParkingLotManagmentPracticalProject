@@ -4,11 +4,12 @@ namespace ParkingLotManagament.DAL.IRepositories
 {
     public interface ISubscriberRepository
     {
+        Task<Subscriber> CreateSubscriber(Subscriber subscriber);
+        Task<Subscriber> UpdateSubscriber(Subscriber subscriber);
+        Task<bool> DeleteSubscriber(int id);
         Task<IEnumerable<Subscriber>> GetAll();
         Task<Subscriber>  GetSubscriberById(int id);
-        Task<Subscriber> CreateSubscriber(Subscriber subscriber);
-       Task<bool> DeleteSubscriber(int id);
-        Task<Subscriber> UpdateSubscriber(Subscriber subscriber);
+        Task<bool> Exist (int id);
         
     }
   

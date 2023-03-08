@@ -13,10 +13,31 @@ namespace ParkingLotManagament.DAL.Repositories
             _context = context;
         }
 
+        public async Task<Subscriber> CreateSubscriber(Subscriber subscriber)
+        {
+            _context.Subscribers.Add(subscriber);
+            await _context.SaveChangesAsync();
+            return subscriber;
+        }
+        public async Task<bool> DeleteSubscriber(int id)
+        {
+            var entity = await GetSubscriberById(id);
+            entity.IsDeleted = true;
+            _ = await _context.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<bool> Exist(int id)
+        {
+            var result = await _context.Subscribers.AnyAsync(s => s.Id == id && s.IsDeleted == false);
+            return result;
+        }
+
         public async Task<IEnumerable<Subscriber>> GetAll()
         {
-            var subscriber = await _context.Subscribers.Where(x => x.IsDeleted == false).ToListAsync();
-            return subscriber;
+            var result = await _context.Subscribers.Where(x=>x.IsDeleted==false).ToListAsync();
+            return result;
         }
 
         public async Task<Subscriber> GetSubscriberById(int id)
@@ -27,28 +48,11 @@ namespace ParkingLotManagament.DAL.Repositories
             return subscriber;
         }
 
-        public async Task<Subscriber> CreateSubscriber(Subscriber subscriber)
-        {
-            _context.Subscribers.Add(subscriber);
-            await _context.SaveChangesAsync();
-            return subscriber;
-        }
-
-        
         public async Task<Subscriber> UpdateSubscriber(Subscriber subscriber)
         {
-            _context.Subscribers.Update(subscriber);
-            await _context.SaveChangesAsync();
-            return subscriber;
-        }
-
-        public async Task<bool> DeleteSubscriber(int id)
-        {
-            Subscriber subscriber = await _context.Subscribers.FindAsync(id);
-            subscriber.IsDeleted = true;
-            _context.Subscribers.Update(subscriber);
-            await _context.SaveChangesAsync();
-            return true;
+            var result = _context.Subscribers.Update(subscriber);
+            _ = await _context.SaveChangesAsync();
+            return result.Entity;
         }
     }
 }

@@ -1,50 +1,44 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ParkingLotManagament.BLL.IServices;
 using ParkingLotManagament.Models;
-using VisioForge.MediaFramework.ONVIF;
+using ParkingLotManagament.ViewModels;
 
 namespace ParkingLotManagament.Controllers
 {
     public class SubscriberController : Controller
     {
-        private readonly ISubscriberService subscriberService;
-        public SubscriberController(ISubscriberService _subscribeService)
+        private readonly ISubscriberService _service;
+        public SubscriberController(ISubscriberService service)
         {
-            subscriberService = _subscribeService;
+            _service = service;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var subscriberViewModels = await _service.GetAll();
+            return View(subscriberViewModels);
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Details(int id)
         {
-            var clientList = await subscriberService.GetAll();
-            return View(clientList);
-        }
-
-        public async Task<IActionResult> Details()
-        {
-            var result = await subscriberService.GetAll();
+            var result = await _service.GetSubscriberById(id);
             return View(result);
         }
-        [HttpPost]
+
+        [HttpPatch]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Subscriber subscriber)
+        public async Task<IActionResult> Edit(SubscriberViewModel subscriberViewModel)
         {
-            if (ModelState.IsValid)
-            {
-                await subscriberService.UpdateSubscriber(subscriber);
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                return View(subscriber);
-            }
+            var result = await _service.UpdateSubscriber(subscriberViewModel);
+            return RedirectToAction("Details", new { id = subscriberViewModel.Id });
         }
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var subscriber = await subscriberService.GetSubscriberById(id);
-            return View(subscriber);
+            var result = await _service.GetSubscriberById(id);
+            return View(result);
         }
 
         public IActionResult Create()
@@ -54,27 +48,29 @@ namespace ParkingLotManagament.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-       public async Task<IActionResult> CreateSubscrber(Subscriber subscriber)
+        public async Task<IActionResult> Create(SubscriberViewModel subscriberViewModel)
         {
+            var result = await _service.CreateSubscriber(subscriberViewModel);
+            return RedirectToAction("Details", new { id = result.Id });
+        }
 
-            var result = await subscriberService.CreateSubscriber(subscriber);
+        [HttpDelete]
+        public async Task<ActionResult> Delete(SubscriberViewModel subscriberViewModel)
+        {
+            var result = await _service.DeleteSubscriber(subscriberViewModel.Id);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await _service.GetSubscriberById(id);
             return View(result);
         }
-        [HttpGet]
-        public async Task<ActionResult> Delete(int id)
-        {
-            var subscriber = await subscriberService.GetSubscriberById(id);
-            return View(subscriber);
-        }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
-            await subscriberService.SoftDeleteSubscriberAsync(id);
-            return RedirectToAction(nameof(Index));
-        }
+
+
     }
-   
-    
+
+
 }
