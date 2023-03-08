@@ -1,43 +1,81 @@
-﻿using ParkingLotManagament.BLL.IServices;
+﻿using AutoMapper;
+using ParkingLotManagament.BLL.IServices;
 using ParkingLotManagament.DAL.IRepositories;
 using ParkingLotManagament.Models;
+using ParkingLotManagament.ViewModels;
 
 namespace ParkingLotManagament.BLL.Services
 {
 
     public class SubscriberService : ISubscriberService
     {
-        private readonly ISubscriberRepository subscriberRepository;
+        private readonly ISubscriberRepository _repository;
+        private readonly IMapper _mapper;
 
-        public SubscriberService(ISubscriberRepository _subscriberRepository)
+        public SubscriberService(ISubscriberRepository repository, IMapper mapper)
         {
-            subscriberRepository = _subscriberRepository;
+            _repository = repository;
+            _mapper = mapper;
         }
 
-        public async Task<Subscriber> CreateSubscriber(Subscriber subscriber)
+        public async Task<SubscriberViewModel> CreateSubscriber(SubscriberViewModel subscriberViewModel)
         {
-            return await subscriberRepository.CreateSubscriber(subscriber);
-        }
+            var subscriber = new Subscriber
+            {
+                Id = subscriberViewModel.Id,
+                FirstName = subscriberViewModel.FirstName,
+                LastName = subscriberViewModel.LastName,
+                IdCardNumber = subscriberViewModel.IdCardNumber,
+                Email = subscriberViewModel.Email,
+                PhoneNumber = subscriberViewModel.PhoneNumber,
+                Birthday = subscriberViewModel.Birthday,
+                PlateNumber = subscriberViewModel.PlateNumber,
+            };
+            var result = await _repository.CreateSubscriber(subscriber);
+            return new SubscriberViewModel
+            {
+                Id = result.Id,
+                FirstName = result.FirstName,
+                LastName = result.LastName,
+                IdCardNumber = result.IdCardNumber,
+                Email = result.Email,
+                PhoneNumber = result.PhoneNumber,
+                Birthday = result.Birthday,
+                PlateNumber = result.PlateNumber,
 
-       
-        public async Task<IEnumerable<Subscriber>> GetAll()
-        {
-            return await subscriberRepository.GetAll();
-        }
-
-        public async Task<Subscriber> GetSubscriberById(int id)
-        {
-            return await subscriberRepository.GetSubscriberById(id);
+            };
         }
 
         public async Task<bool> DeleteSubscriber(int id)
         {
-           return await subscriberRepository.DeleteSubscriber(id);
+            var result = await _repository.GetSubscriberById(id);
+            var mappedSubscription = _mapper.Map<Subscriber>(result);
+            await _repository.DeleteSubscriber(result.Id);
+            return true;
         }
 
-        public async Task<Subscriber> UpdateSubscriber(Subscriber subscriber)
+        public async Task<IEnumerable<SubscriberViewModel>> GetAll()
         {
-            return await subscriberRepository.UpdateSubscriber(subscriber);
+            var result = await _repository.GetAll();
+            var mappedSubscriber = _mapper.Map<IEnumerable<SubscriberViewModel>>(result);
+            return mappedSubscriber;
+
+        }
+
+        public async Task<SubscriberViewModel> GetSubscriberById(int id)
+        {
+            var result = await _repository.GetSubscriberById(id);
+            var mappedSubscriber = _mapper.Map<SubscriberViewModel>(result);
+            return mappedSubscriber;
+
+        }
+
+        public async Task<SubscriberViewModel> UpdateSubscriber(SubscriberViewModel subscriberViewModel)
+        {
+            var mappedSubscriber = _mapper.Map<Subscriber>(subscriberViewModel);
+            var updatedSubscriber = await _repository.UpdateSubscriber(mappedSubscriber);
+            var updatedSubscriberView = _mapper.Map<SubscriberViewModel>(updatedSubscriber);
+            return updatedSubscriberView;
         }
     }
 }
