@@ -30,20 +30,29 @@ namespace ParkingLotManagament.Controllers
         {
             return View();
         }
+
+
         [HttpPost]
         public async Task<IActionResult> Create(SubscriptionViewModel subscriptionViewModel)
         {
             var result = await _service.CreateSubscription(subscriptionViewModel);
 
-            return RedirectToAction("Details", new { id = subscriptionViewModel.Id });
+            return RedirectToAction("Details", new { id = result.Id });
 
         }
 
-        [HttpDelete]
+        [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _service.DeleteSubscription(id);
-            return View(result);
+            var result = await _service.GetSubscriptionById(id);
+           return View(result);
+        }
+
+        [HttpPost, ActionName("Delete")]
+            public async Task<IActionResult> DeleteSub(int id)
+        {
+            await _service.DeleteSubscription(id);
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]

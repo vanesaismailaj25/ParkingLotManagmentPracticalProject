@@ -25,9 +25,9 @@ namespace ParkingLotManagament.DAL.Repositories
         {
             var entity = await GetSubscriptionAsync(subscriberId);
             entity.IsDeleted= true;
+            var saved = _context.Subscriptions.Update(entity);
             _ = await _context.SaveChangesAsync();
-
-            return true;
+                        return true;
         }
 
         public async Task<bool> ExistsAsync(int subscriberId)
@@ -38,7 +38,7 @@ namespace ParkingLotManagament.DAL.Repositories
 
         public async Task<IEnumerable<Subscription>> GetAll()
         {
-            var result = await _context.Subscriptions.ToListAsync();
+            var result = await _context.Subscriptions.Where(x=>x.IsDeleted==false).ToListAsync();
             return result;
         }
 

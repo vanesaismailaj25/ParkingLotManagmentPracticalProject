@@ -62,10 +62,13 @@ namespace ParkingLotManagament.BLL.Services
 
         public async Task<bool> DeleteSubscription(int id)
         {
-            var result = await _repository.GetSubscriptionAsync(id);
-            var mappedSubscription = _mapper.Map<Subscription>(result);
-            await _repository.DeleteSubscriptionAsync(result.Id);
-            return true;
+            if (await _repository.ExistsAsync(id))
+            {
+                var entity = await _repository.DeleteSubscriptionAsync(id);
+                return true;
+
+            }
+            else { throw new InvalidDataException(); }
         }
 
         public async Task<SubscriptionViewModel> GetSubscriptionById(int Id)
