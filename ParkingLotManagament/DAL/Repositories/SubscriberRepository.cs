@@ -23,6 +23,7 @@ namespace ParkingLotManagament.DAL.Repositories
         {
             var entity = await GetSubscriberById(id);
             entity.IsDeleted = true;
+            _context.Subscribers.Update(entity);
             _ = await _context.SaveChangesAsync();
 
             return true;
