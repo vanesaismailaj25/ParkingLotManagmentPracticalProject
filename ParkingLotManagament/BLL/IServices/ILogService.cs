@@ -1,12 +1,12 @@
 ﻿using ParkingLotManagament.Models;
+using ParkingLotManagament.ViewModels;
 
 namespace ParkingLotManagament.BLL.IServices;
 
 public interface ILogService
 {
-    Task<Log> CreateLog(Log log);
-    Task<Log> DeleteLog(int Id);
-    Task<Log> GetLog(int Id);
-    Task<List<Log>> GetAllLog();
+    Task<LogViewModel> CreateLog(LogViewModel logViewModel);
+    Task<LogViewModel> GetLog(int Id);
+    Task<IEnumerable<LogViewModel>> GetAll();
 
 }

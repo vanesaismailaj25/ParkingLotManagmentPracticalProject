@@ -7,6 +7,6 @@ namespace ParkingLotManagament.DAL.IRepositories
         Task<Log> CreateLog(Log log);
         Task<Log> DeleteLog(int Id);
         Task<Log> GetLog(int Id);
-        Task<List<Log>> GetAllLogs();
+        Task<IEnumerable<Log>> GetAllLogs();
     }
 }

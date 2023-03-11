@@ -1,16 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ParkingLotManagament.BLL.IServices;
 using ParkingLotManagament.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace ParkingLotManagament.Controllers
 {
     public class SubscriptionController : Controller
     {
         private readonly ISubscriptionService _service;
+        private readonly ISubscriberService _subscriberService;
 
-        public SubscriptionController(ISubscriptionService service)
+        public SubscriptionController(ISubscriptionService service, ISubscriberService subscriberService)
         {
             _service = service;
+            _subscriberService = subscriberService;
         }
 
         public async Task<IActionResult> Index()
@@ -28,6 +31,8 @@ namespace ParkingLotManagament.Controllers
 
         public IActionResult Create()
         {
+            var subscribers =  _subscriberService.GetAll();
+            ViewBag.SubscriberList = subscribers;
             return View();
         }
 

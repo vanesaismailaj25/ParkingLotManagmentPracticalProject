@@ -28,7 +28,7 @@ namespace ParkingLotManagament.DAL.Repositories
             return log;
         }
 
-        public async Task<List<Log>> GetAllLogs()            
+        public async Task<IEnumerable<Log>> GetAllLogs()            
         {
             var logList = await context.Logs.ToListAsync();
             return logList;

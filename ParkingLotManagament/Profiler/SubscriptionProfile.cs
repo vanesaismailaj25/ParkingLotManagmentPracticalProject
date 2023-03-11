@@ -8,7 +8,11 @@ namespace ParkingLotManagament.Profiler
     {
         public SubscriptionProfile()
         {
-            CreateMap<SubscriptionViewModel, Subscription>().ReverseMap();
+            CreateMap<Subscription, SubscriptionViewModel>().ForMember(
+                dest => dest.PlateNumber,
+                opt => opt.MapFrom(src => src.Subscriber.PlateNumber));
+            CreateMap<SubscriptionViewModel, Subscription>();
+
         }
     }
 }

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ParkingLotManagament.Models;
 
-namespace ParkingLotManagament.Models
+namespace ParkingLotManagament.ViewModels
 {
-    public partial class Log
+    public class LogViewModel
     {
         public int Id { get; set; }
-        public string Code { get; set; }
         public int SubscriptionId { get; set; }
         public DateTime CheckInTime { get; set; }
         public DateTime CheckOutTime { get; set; }
