@@ -17,17 +17,6 @@ namespace ParkingLotManagament.Controllers
 
         public async Task<IActionResult> Index()
         {
-
-            //var totalSpots = _service.CountSpots();
-            //var reservedSpots = _service.CountReservedSpots();
-            //var freeSpots = totalSpots - reservedSpots;
-
-            //var viewModel = new ParkingTableViewModel
-            //{
-            //    TotalSpots = totalSpots,
-            //    ReservedSpots = reservedSpots,
-            //    FreeSpots = freeSpots
-            //};
             var viewModel = await _service.CountAll();
 
             return View(viewModel);

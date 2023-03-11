@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
+using ParkingLotManagament.ViewModels;
 
 namespace ParkingLotManagament.Models
 {
@@ -31,6 +29,8 @@ namespace ParkingLotManagament.Models
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+        public DbSet<ParkingLotManagament.ViewModels.SubscriptionViewModel> SubscriptionViewModel { get; set; }
 
     }
 }

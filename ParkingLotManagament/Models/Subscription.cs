@@ -12,13 +12,13 @@ namespace ParkingLotManagament.Models
         }
 
         public int Id { get; set; }
-        public Guid Code { get; set; }
+        public string Code { get; set; }
         public int SubscriberId { get; set; }
         public decimal Price { get; set; }
         public decimal? DiscountValue { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public bool IsDeleted { get; set; }
+        public bool IsDeleted { get; set; } = false;
 
         public virtual Subscriber Subscriber { get; set; } = null!;
         public virtual ICollection<Log> Logs { get; set; }

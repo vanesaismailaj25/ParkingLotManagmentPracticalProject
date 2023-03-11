@@ -1,13 +1,18 @@
-﻿namespace ParkingLotManagament.ViewModels
+﻿using ParkingLotManagament.Models;
+
+namespace ParkingLotManagament.ViewModels
 {
     public class SubscriptionViewModel
     {
-        public string SubscriptionId { get; set;}
-        public string SubscriberId { get; set;}
-        public decimal SubscriptionPrice { get; set;}
-        public decimal DiscountValue { get; set;}
-        public DateTime StartDate { get; set;}
-        public DateTime EndDate { get; set;}
+        public int Id { get; set; }
+        public int SubscriberId { get; set; }
+        public decimal Price { get; set; }
+        public decimal? DiscountValue { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+
+        public virtual Subscriber Subscriber { get; set; }
 
     }
+
 }

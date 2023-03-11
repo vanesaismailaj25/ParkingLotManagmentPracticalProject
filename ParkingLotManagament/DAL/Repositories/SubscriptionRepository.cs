@@ -21,29 +21,24 @@ namespace ParkingLotManagament.DAL.Repositories
             return result.Entity;
         }
 
-        public async Task<Subscription> DeleteSubscriptionAsync(Subscription subscription, int subscriberId)
+        public async Task<bool> DeleteSubscriptionAsync(int subscriberId)
         {
             var entity = await GetSubscriptionAsync(subscriberId);
-            var result = _context.Subscriptions.Remove(entity);
+            entity.IsDeleted= true;
+            var saved = _context.Subscriptions.Update(entity);
             _ = await _context.SaveChangesAsync();
-
-            return result.Entity;
-        }
-
-        public Task DeleteSubscriptionAsync(int Id)
-        {
-            throw new NotImplementedException();
+                        return true;
         }
 
         public async Task<bool> ExistsAsync(int subscriberId)
         {
-            var result = await _context.Subscriptions.AnyAsync(s => s.SubscriberId == subscriberId);
+            var result = await _context.Subscriptions.AnyAsync(s => s.SubscriberId == subscriberId && s.IsDeleted==false);
             return result;
         }
 
-        public async Task<List<Subscription>> GetAllSubscriptionAsync()
+        public async Task<IEnumerable<Subscription>> GetAll()
         {
-            var result = await _context.Subscriptions.ToListAsync();
+            var result = await _context.Subscriptions.Where(x=>x.IsDeleted==false).ToListAsync();
             return result;
         }
 
@@ -51,7 +46,7 @@ namespace ParkingLotManagament.DAL.Repositories
         //should get the subscription by code or subscriber name
         public async Task<Subscription> GetSubscriptionAsync(int subscriberId)
         {
-            var result = await _context.Subscriptions.FirstOrDefaultAsync(s => s.Id == subscriberId);
+            var result = await _context.Subscriptions.FirstOrDefaultAsync(s => s.Id == subscriberId && s.IsDeleted==false);
             return result;
         }
 
