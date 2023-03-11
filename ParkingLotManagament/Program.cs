@@ -32,6 +32,8 @@ builder.Services.AddScoped<ISubscriptionRepository,SubscriptionRepository>();
 builder.Services.AddScoped<ISubscriptionService,SubscriptionService>();
 builder.Services.AddScoped<ILogRepository,LogRepository>();
 builder.Services.AddScoped<ILogService,LogService>();
+builder.Services.AddScoped<ISubscriberRepository, SubscriberRepository>();
+builder.Services.AddScoped<ISubscriberService, SubscriberService>();
 
 var app = builder.Build();
 
