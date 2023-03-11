@@ -38,7 +38,7 @@ namespace ParkingLotManagament.DAL.Repositories
 
         public async Task<IEnumerable<Subscription>> GetAll()
         {
-            var result = await _context.Subscriptions.Where(x=>x.IsDeleted==false).ToListAsync();
+            var result = await _context.Subscriptions.Include(x=>x.Subscriber).Where(x=>x.IsDeleted==false).ToListAsync();
             return result;
         }
 
