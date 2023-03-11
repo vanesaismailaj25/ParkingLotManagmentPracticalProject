@@ -54,11 +54,11 @@ namespace ParkingLotManagament.Controllers
             return RedirectToAction("Details", new { id = result.Id });
         }
 
-        [HttpDelete]
-        public async Task<ActionResult> Delete(SubscriberViewModel subscriberViewModel)
+        [HttpPost,ActionName("Delete")]
+        public async Task<ActionResult> DeleteSub(int id)
         {
-            var result = await _service.DeleteSubscriber(subscriberViewModel.Id);
-            return RedirectToAction("Index");
+            var result = await _service.DeleteSubscriber(id);
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
