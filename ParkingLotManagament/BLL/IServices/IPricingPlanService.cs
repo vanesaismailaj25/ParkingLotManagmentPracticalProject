@@ -5,8 +5,8 @@ namespace ParkingLotManagament.BLL.IServices
 {
     public interface IPricingPlanService
     {
-        Task<PricingPlan> UpdateAsync(PricingPlan plan);
-        Task<IEnumerable<PricingPlan>> GetAllAsync();
-        Task<PricingPlan> GetPricing(int Id);
+        Task<PricingPlanViewModel> UpdateAsync(PricingPlanViewModel planViewModel);
+        Task<IEnumerable<PricingPlanViewModel>> GetAll();
+        Task<PricingPlanViewModel> GetPricing(int Id);
     }
 }

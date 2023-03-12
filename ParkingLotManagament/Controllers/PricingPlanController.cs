@@ -16,11 +16,11 @@ public class PricingPlanController : Controller
 
     public async Task<IActionResult> Index()
     {
-        var result = await _service.GetAllAsync();
+        var result = await _service.GetAll();
         return View(result);
     }
     [HttpPost]
-    public async Task<IActionResult> Edit( PricingPlan pricingPlan)
+    public async Task<IActionResult> Edit( PricingPlanViewModel pricingPlan)
     {
         await _service.UpdateAsync(pricingPlan);
         return RedirectToAction("Details",new {id=pricingPlan.Id});

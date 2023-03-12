@@ -41,6 +41,7 @@ namespace ParkingLotManagament.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
+
             var listOfSubscriptions = await _subscriptionService.GetAll();
             ViewBag.ListOfSubscriptions = new SelectList(listOfSubscriptions, "Id", "SubscriberId");
             var result = await _service.GetById(id);
