@@ -32,7 +32,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Subscription.Id)
+                    @Html.DisplayFor(modelItem => item.Subscription.Subscriber.PlateNumber)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CheckInTime)
@@ -44,7 +44,7 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
                 </td>
             </tr>
         }
