@@ -45,6 +45,7 @@ namespace ParkingLotManagament.BLL.Services
                 DiscountValue = subscriptionViewModel.DiscountValue,
                 StartDate = subscriptionViewModel.StartDate,
                 EndDate = subscriptionViewModel.EndDate,
+                SubscriberId = subscriptionViewModel.SubscriberId,
                 Code = code
             };
 
@@ -80,7 +81,15 @@ namespace ParkingLotManagament.BLL.Services
 
         public async Task<SubscriptionViewModel> UpdateSubscription(SubscriptionViewModel subscriptionViewModel)
         {
+            var code = CodeGenerator.SubscribtionGenerateCode(
+                                                                subscriptionViewModel.StartDate,
+                                                                subscriptionViewModel.Id,
+                                                                subscriptionViewModel.SubscriberId,
+                                                                subscriptionViewModel.Price,
+                                                                subscriptionViewModel.EndDate);
+
             var mappedSubscription = _mapper.Map<Subscription>(subscriptionViewModel);
+            mappedSubscription.Code = code;
 
             var updatedSubscription = await _repository.UpdateSubscriptionAsync(mappedSubscription);
 

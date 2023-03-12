@@ -10,6 +10,7 @@ namespace ParkingLotManagament.ViewModels
         public decimal? DiscountValue { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        public string PlateNumber { get; set; }
 
         public virtual Subscriber Subscriber { get; set; }
 
