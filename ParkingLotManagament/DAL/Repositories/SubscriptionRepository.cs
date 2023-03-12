@@ -32,8 +32,8 @@ namespace ParkingLotManagament.DAL.Repositories
 
         public async Task<bool> ExistsAsync(int subscriberId)
         {
-            var result = await _context.Subscriptions.AnyAsync(s => s.SubscriberId == subscriberId && s.IsDeleted==false);
-            return result;
+            var result = await _context.Subscriptions.Where(x=>x.IsDeleted==false).AnyAsync(s => s.SubscriberId == subscriberId);
+            return true;
         }
 
         public async Task<IEnumerable<Subscription>> GetAll()

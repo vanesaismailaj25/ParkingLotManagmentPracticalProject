@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿using AutoMapper;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using NuGet.Packaging.Signing;
 using NuGet.Protocol.Core.Types;
 using ParkingLotManagament.BLL.IServices;
@@ -11,27 +12,35 @@ namespace ParkingLotManagament.BLL.Services;
 public class PricingPlanService : IPricingPlanService
 {
     private readonly IPricingPlansRepository _repository;
+    private readonly IMapper _mapper;
 
-    public PricingPlanService(IPricingPlansRepository repository)
+    public PricingPlanService(IPricingPlansRepository repository, IMapper mapper)
     {
 
        _repository = repository;
+        _mapper = mapper;
     }
 
-    public async Task<PricingPlan> UpdateAsync(PricingPlan plan)
+    public async Task<PricingPlanViewModel> UpdateAsync(PricingPlanViewModel planViewModel)
     {
-        var planUpdate = await _repository.UpdateAsync(plan);
-        return planUpdate;
+        var mappedPricePlan = _mapper.Map<PricingPlan>(planViewModel);
+        var planUpdate = await _repository.UpdateAsync(mappedPricePlan);
+        var updatedMapped = _mapper.Map<PricingPlanViewModel>(planUpdate);
+        return updatedMapped;
     }
 
 
-    public async Task<IEnumerable<PricingPlan>> GetAllAsync()
+    public async Task<IEnumerable<PricingPlanViewModel>> GetAll()
     {
-        return await _repository.GetAllAsync();
+        var result = await _repository.GetAllAsync();
+        var mappedPlan=_mapper.Map<IEnumerable<PricingPlanViewModel>>(result);
+        return mappedPlan;
     }
 
-    public async Task<PricingPlan> GetPricing(int Id)
+    public async Task<PricingPlanViewModel> GetPricing(int Id)
     {
-        return await _repository.GetAsync(Id);
+        var result = await _repository.GetAsync(Id);
+        var mappedPlan = _mapper.Map<PricingPlanViewModel>(result);
+        return mappedPlan;
     }
 }

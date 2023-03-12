@@ -1,4 +1,4 @@
-﻿@model ParkingLotManagament.Models.PricingPlan
+﻿@model ParkingLotManagament.ViewModels.PricingPlanViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -29,10 +29,10 @@
             @Html.DisplayFor(model => model.MinimumHours)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Weekend)
+            @Html.DisplayNameFor(model => model.DayOfWeekName)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Weekend)
+            @Html.DisplayFor(model => model.DayOfWeekName)
         </dd>
     </dl>
 </div>

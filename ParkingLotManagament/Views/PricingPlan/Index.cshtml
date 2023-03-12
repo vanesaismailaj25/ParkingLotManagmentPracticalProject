@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ParkingLotManagament.Models.PricingPlan>
+﻿@model IEnumerable<ParkingLotManagament.ViewModels.PricingPlanViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -19,7 +19,7 @@
                 @Html.DisplayNameFor(model => model.MinimumHours)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Weekend)
+                @Html.DisplayNameFor(model => model.DayOfWeekName)
             </th>
             <th></th>
         </tr>
@@ -37,7 +37,7 @@
                 @Html.DisplayFor(modelItem => item.MinimumHours)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Weekend)
+                @Html.DisplayFor(modelItem => item.DayOfWeekName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
