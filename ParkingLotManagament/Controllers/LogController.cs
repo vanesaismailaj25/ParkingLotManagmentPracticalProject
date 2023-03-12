@@ -26,8 +26,8 @@ namespace ParkingLotManagament.Controllers
 
         public async Task<IActionResult> Create()
         {
-            var listOfSubscribtions =  await _subscriptionService.GetAll();
-            ViewBag.ListSubscriptions = new SelectList(listOfSubscribtions, "Id", "Plate");
+            var listOfSubscriptions =  await _subscriptionService.GetAll();
+            ViewBag.ListSubscriptions = new SelectList(listOfSubscriptions, "Id", "PlateNumber");
             return View();
         }
 
