@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit";
+    SelectList SubscriptionList = ViewBag.ListOfSubscriptions;
 }
 
 <h1>Edit</h1>
@@ -20,7 +21,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="SubscriptionId" class="control-label"></label>
-                <select asp-for="SubscriptionId" class="form-control" asp-items="ViewBag.SubscriptionId"></select>
+                <select asp-for="SubscriptionId" class="form-control" asp-items="SubscriptionList"></select>
                 <span asp-validation-for="SubscriptionId" class="text-danger"></span>
             </div>
             <div class="form-group">
