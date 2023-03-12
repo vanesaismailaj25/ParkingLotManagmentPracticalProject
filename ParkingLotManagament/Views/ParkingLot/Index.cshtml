@@ -4,18 +4,39 @@
 @{
 }
 @{
-    ViewData["Title"] = "Index";
+ViewData["Title"] = "Index";
 }
-<h1>Parking Lot</h1>
-<p>
-    <div>Total Spots: @Model.TotalSpots</div>
-</p>
-<p>
-    <div>Reserved Spots: @Model.ReservedSpots</div>
-</p>
-<p>
-    <div>Free Spots: @Model.FreeSpots</div>
-</p>
-<p>
-    <a asp-action="Details">View All Spots</a>
-</p>
+
+<h1>Parking Lot Status</h1>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card text-center bg-primary text-white">
+            <div class="card-body">
+                <h5 class="card-title">Total Spots</h5>
+                <p class="card-text display-4">@Model.TotalSpots</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center bg-warning text-white">
+            <div class="card-body">
+                <h5 class="card-title">Reserved Spots</h5>
+                <p class="card-text display-4">@Model.ReservedSpots</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center bg-success text-white">
+            <div class="card-body">
+                <h5 class="card-title">Available Spots</h5>
+                <p class="card-text display-4">@Model.FreeSpots</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<div class="text-center mt-5">
+    <a asp-action="Details" class="btn btn-primary">View All Spots</a>
+</div>
