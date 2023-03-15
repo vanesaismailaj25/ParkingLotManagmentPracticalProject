@@ -15,7 +15,7 @@ public class PricingPlanRepository : IPricingPlansRepository
 
     public async Task<PricingPlan> GetAsync(int Id)
     {
-        var pricingPlan = await _context.PricingPlans.FindAsync(Id);
+        var pricingPlan = await _context.PricingPlans.Where(x=>x.Id==Id).FirstOrDefaultAsync();
         return pricingPlan;
     }
 
