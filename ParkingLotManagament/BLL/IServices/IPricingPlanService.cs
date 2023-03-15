@@ -8,7 +8,6 @@ namespace ParkingLotManagament.BLL.IServices
         Task<PricingPlanViewModel> UpdateAsync(PricingPlanViewModel planViewModel);
         Task<IEnumerable<PricingPlanViewModel>> GetAll();
         Task<PricingPlanViewModel> GetPricing(int Id);
-        Task<decimal> CalculateMonthlySubscriptionAsync(DateTime startDate, DateTime endDate);
-
+        Task<PricingPlanViewModel> GetWeekEnd(bool day);
     }
 }

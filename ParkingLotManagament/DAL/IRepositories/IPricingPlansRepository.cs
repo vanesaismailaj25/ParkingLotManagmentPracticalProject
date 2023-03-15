@@ -7,5 +7,6 @@ namespace ParkingLotManagament.DAL.IRepositories
         Task<IEnumerable<PricingPlan>> GetAllAsync();
         Task<PricingPlan> GetAsync(int Id);
         Task<PricingPlan> UpdateAsync(PricingPlan pricingPlan);
+        Task<PricingPlan> GetWeekEndAsync(bool day);
     }
 }

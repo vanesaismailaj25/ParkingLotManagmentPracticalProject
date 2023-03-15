@@ -3,9 +3,10 @@ namespace ParkingLotManagament.BLL.Services
 {
     public class CodeGenerator
     {
-        public static string SubscribtionGenerateCode(DateTime startDate, int userId, int Subscriberid, decimal price, DateTime endDate)
+        public static string SubscribtionGenerateCode(DateTime startDate, int userId, int Subscriberid, DateTime endDate)
         {
-            var code = $"{Subscriberid}-{startDate.ToString("yyyyMMdd")}-{userId}-{price.ToString("F2")}-{endDate.ToString("yyyyMMdd")}";
+            string random = GenerateRandomLetters(3);
+            var code = $"{Subscriberid}-{startDate.ToString("yyyyMMdd")}-{userId}-{endDate.ToString("yyyyMMdd")}-{random}";
             return code;
         }
 

@@ -20,6 +20,7 @@ namespace ParkingLotManagament.BLL.Services
             _codeGenerator = new CodeGenerator();
             _mapper = mapper;
             _pricingPlanService = pricingPlanService;
+            _calculations = new Calculations();
         }
 
         public async Task<SubscriptionViewModel> CreateSubscription(SubscriptionViewModel subscriptionViewModel)
@@ -34,43 +35,47 @@ namespace ParkingLotManagament.BLL.Services
                 throw new ArgumentException("End date must be greater than start date.", nameof(subscriptionViewModel.EndDate));
             }
 
-            decimal cost = await _pricingPlanService.CalculateMonthlySubscriptionAsync(subscriptionViewModel.StartDate, subscriptionViewModel.EndDate);
-           
+            var weekDay = await _pricingPlanService.GetWeekEnd(false);
+            var weekEnd = await _pricingPlanService.GetWeekEnd(true);
+
+
+            decimal cost = Calculations.CalculateMonthlySubscription(subscriptionViewModel.StartDate, subscriptionViewModel.EndDate, weekDay.DailyPricing, weekEnd.DailyPricing);
+            decimal amount = Calculations.CalculateAmount(cost, (decimal)subscriptionViewModel.DiscountValue);
+
             var code = CodeGenerator.SubscribtionGenerateCode(
                 subscriptionViewModel.StartDate,
                 subscriptionViewModel.Id,
                 subscriptionViewModel.SubscriberId,
-                cost,
                 subscriptionViewModel.EndDate);
             TimeSpan duration = subscriptionViewModel.EndDate - subscriptionViewModel.StartDate;
 
-            if(duration.TotalHours>12)
+            if (duration.TotalHours > 12)
             {
                 //int days = (int)Math.Ceiling(duration.TotalDays);
                 //if (subscriptionViewModel.EndDate==DayOfWeek.Saturday || subscriptionViewModel.EndDate==DayOfWeek.) { }
                 //var dailyprice = _pricingPlanService.GetPricingPlan(x=>x.Id==
             }
 
-            
+
 
             var newSubscription = new Subscription
             {
                 Id = subscriptionViewModel.Id,
                 Price = cost,
                 DiscountValue = subscriptionViewModel.DiscountValue,
+                AmountToBePaid = amount,
                 StartDate = subscriptionViewModel.StartDate,
                 EndDate = subscriptionViewModel.EndDate,
                 SubscriberId = subscriptionViewModel.SubscriberId,
                 Code = code
             };
 
-            decimal amountToBePaid = (cost - (cost * (decimal)newSubscription.DiscountValue/100));
             var result = await _repository.CreateSubscriptionAsync(newSubscription);
             return new SubscriptionViewModel
             {
                 Id = result.Id,
                 Price = result.Price,
-                AmountToBePaid= amountToBePaid,
+                AmountToBePaid = amount,
                 DiscountValue = result.DiscountValue,
                 StartDate = result.StartDate,
                 EndDate = result.EndDate,
@@ -102,7 +107,6 @@ namespace ParkingLotManagament.BLL.Services
                                                                 subscriptionViewModel.StartDate,
                                                                 subscriptionViewModel.Id,
                                                                 subscriptionViewModel.SubscriberId,
-                                                                subscriptionViewModel.Price,
                                                                 subscriptionViewModel.EndDate);
 
             var mappedSubscription = _mapper.Map<Subscription>(subscriptionViewModel);

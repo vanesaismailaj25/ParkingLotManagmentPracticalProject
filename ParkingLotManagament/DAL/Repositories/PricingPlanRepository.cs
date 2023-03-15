@@ -10,7 +10,7 @@ public class PricingPlanRepository : IPricingPlansRepository
 
     public PricingPlanRepository(ParkingLotManagementDatabaseContext context)
     {
-        _context = context;
+        _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
     public async Task<PricingPlan> GetAsync(int Id)
@@ -29,6 +29,12 @@ public class PricingPlanRepository : IPricingPlansRepository
     {
          _context.PricingPlans.Update(pricingPlan);
         _ = await _context.SaveChangesAsync();
+        return pricingPlan;
+    }
+
+    public async Task<PricingPlan> GetWeekEndAsync(bool day)
+    {
+        var pricingPlan = await _context.PricingPlans.Where(x => x.Weekend == day).FirstOrDefaultAsync();
         return pricingPlan;
     }
 }
