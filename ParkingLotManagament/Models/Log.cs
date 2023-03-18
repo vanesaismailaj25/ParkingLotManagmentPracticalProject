@@ -5,7 +5,7 @@ namespace ParkingLotManagament.Models
 {
     public partial class Log
     {
-        public int? Id { get; set; }
+        public int Id { get; set; }
         public string Code { get; set; }
         public string PlateNumber { get; set; }
         public int SubscriptionId { get; set; }
