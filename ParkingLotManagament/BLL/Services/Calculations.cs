@@ -8,10 +8,10 @@ namespace ParkingLotManagament.BLL.Services
 
         public static decimal CalculateMonthlySubscription(DateTime startDate, DateTime endDate, decimal weekdayPrice, decimal weekendPrice)
         {
-            // Step 1: Calculate the total number of days between the start and end dates
+            //Calculate the total number of days between the start and end dates
             int totalDays = (int)(endDate - startDate).TotalDays + 1;
 
-            // Step 2: Calculate the number of weekdays and weekends in the total number of days
+            //Calculate the number of weekdays and weekends in the total number of days
             int weekdays = 0;
             int weekends = 0;
             for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
@@ -26,17 +26,15 @@ namespace ParkingLotManagament.BLL.Services
                 }
             }
 
-
-            // Step 5: Multiply the number of weekdays by the weekday daily price
             decimal weekdayCost = weekdays * (weekdayPrice);
 
-            // Step 6: Multiply the number of weekends by the weekend daily price
+            //Multiply the number of weekends by the weekend daily price
             decimal weekendCost = weekends * (weekendPrice);
 
-            // Step 7: Add the weekday and weekend costs together to get the total monthly subscription cost
+            //Add the weekday and weekend costs together to get the total monthly subscription cost
             decimal totalCost = weekdayCost + weekendCost;
 
-            // Round up to the nearest cent
+            //Round up to the nearest cent
             return Math.Round(totalCost, 2, MidpointRounding.AwayFromZero);
         }
 

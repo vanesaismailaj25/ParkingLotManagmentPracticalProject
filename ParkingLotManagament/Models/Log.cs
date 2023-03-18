@@ -12,6 +12,6 @@ namespace ParkingLotManagament.Models
         public DateTime CheckOutTime { get; set; }
         public decimal Price { get; set; }
 
-        public virtual Subscription Subscription { get; set; } = null!;
+        public virtual Subscription? Subscription { get; set; }
     }
 }
